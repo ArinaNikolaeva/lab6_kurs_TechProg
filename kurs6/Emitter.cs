@@ -11,8 +11,8 @@ namespace kurs6
     public class Emitter
     {
 
-        public int X; // координата X центра эмиттера, будем ее использовать вместо MousePositionX
-        public int Y; // соответствующая координата Y 
+        public int X; // координата X центра эмиттера
+        public int Y; // координата Y 
         public int Direction = 0; // вектор направления в градусах куда сыпет эмиттер
         public int Spreading = 360; // разброс частиц относительно Direction
         public int SpeedMin = 5; // начальная минимальная скорость движения частицы
@@ -29,21 +29,21 @@ namespace kurs6
 
         List<Particle> particles = new List<Particle>();
         public float GravitationX = 0;
-        public float GravitationY = 1; // пусть гравитация будет силой один пиксель за такт, нам хватит
+        public float GravitationY = 1; // пусть гравитация будет силой один пиксель за такт
 
         public List<Point> gravityPoints = new List<Point>(); // тут буду хранится точки притяжения
 
         
 
-        public int ParticlesPerTick = 1; // добавил новое поле
+        public int ParticlesPerTick = 1; // кол-во частиц в тик
 
 
         public int ParticlesCount => particles.Count(p => p.Life > 0); // возвращаем количество частиц с жизнью > 0
 
-        public void UpdateState()
+        public void UpdateState()     //метод обновляет состояние эмиттера. Он удаляет частицы, у которых закончилась жизнь, и создает новые
         {
             particles.RemoveAll(p => p.Life <= 0);  // Удаляем мертвые частицы
-            int particlesToCreate = ParticlesPerTick;
+            int particlesToCreate = ParticlesPerTick;// кол-во частиц в тик
 
             foreach (var particle in particles)
             {
@@ -78,7 +78,7 @@ namespace kurs6
                     particle.Y += particle.SpeedY;
 
                     // Уменьшаем жизнь частицы
-                    particle.Life -= 1; // или больше, если ты хочешь быстрее убивать частицы
+                    particle.Life -= 1;
                 }
             }
 
@@ -92,7 +92,7 @@ namespace kurs6
             }
         }
 
-        public virtual void ResetParticle(Particle particle)
+        public virtual void ResetParticle(Particle particle)  //Метод сбрасывает параметры частицы, назначая ей новые координаты, скорость и направление
         {
             particle.Life = Particle.rand.Next(LifeMin, LifeMax);
 
@@ -135,9 +135,9 @@ namespace kurs6
             return particle;
         }
 
-        public void Render(Graphics g)
+        public void Render(Graphics g) //Этот метод отрисовывает все частицы, создавая визуальный эффект
         {
-            // утащили сюда отрисовку частиц
+   
             foreach (var particle in particles)
             {
                 particle.Draw(g);

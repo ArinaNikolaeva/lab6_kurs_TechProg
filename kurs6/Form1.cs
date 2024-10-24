@@ -21,12 +21,12 @@ namespace kurs6
                 SpeedMax = 10,
                 ColorFrom = Color.BlueViolet,
                 ColorTo = Color.FromArgb(0, Color.Pink),
-                ParticlesPerTick = 10,
+                ParticlesPerTick = 10,                //кол-во частиц за тик
                 X = picDisplay.Width / 2,
                 Y = picDisplay.Height / 2,
             };
 
-            emitters.Add(this.emitter); // все равно добавляю в список emitters, чтобы он рендерился и обновлялся
+            emitters.Add(this.emitter); //добавляю в список emitters, чтобы он рендерился и обновлялся
 
 
         }
@@ -42,27 +42,27 @@ namespace kurs6
 
             using (var g = Graphics.FromImage(picDisplay.Image))
             {
-                g.Clear(Color.Black); // А ЕЩЕ ЧЕРНЫЙ ФОН СДЕЛАЮ
-                emitter.Render(g);
+                g.Clear(Color.Black); // ЧЕРНЫЙ ФОН
+                emitter.Render(g);//рисует частицы
             }
 
-            picDisplay.Invalidate();
+            picDisplay.Invalidate();//Вызывает перерисовку изображения на форме, что обновляет отображение
         }
 
 
-        private void tbDirection_Scroll(object sender, EventArgs e)
+        private void tbDirection_Scroll(object sender, EventArgs e) //направление эмиттера
         {
             emitter.Direction = tbDirection.Value;
             ldlDirection.Text = $"Направление: {tbDirection.Value}°"; // добавил вывод значения
         }
 
-        private void tbSpreading_Scroll(object sender, EventArgs e)
+        private void tbSpreading_Scroll(object sender, EventArgs e)// разброс частиц
         {
             emitter.Spreading = tbSpreading.Value;
             ldlSpreading.Text = $"Разброс: {tbSpreading.Value}"; // добавил вывод значения
         }
 
-        private void tdSpeed_Scroll(object sender, EventArgs e)
+        private void tdSpeed_Scroll(object sender, EventArgs e) //изменяет минимальную и максимальную скорости частиц
         {
             emitter.SpeedMin = tbSpeed.Value;
             ldlSpeed.Text = $"Скорость: {tbSpeed.Value}"; // добавил вывод значения
@@ -70,13 +70,13 @@ namespace kurs6
             ldlSpeed.Text = $"Скорость: {tbSpeed.Value}"; // добавил вывод значения
         }
 
-        private void tbParticlesPerTick_Scroll(object sender, EventArgs e)
+        private void tbParticlesPerTick_Scroll(object sender, EventArgs e)//количество частиц, создаваемых за один тик таймера,
         {
             emitter.ParticlesPerTick = tbParticlesPerTick.Value;
             ldlParticlesPerTick.Text = $"Кол-во частиц в тик: {tbParticlesPerTick.Value}"; // добавил вывод значения
         }
 
-        private void tbLife_Scroll(object sender, EventArgs e)
+        private void tbLife_Scroll(object sender, EventArgs e)//продолжительность жизни частиц
         {
             emitter.LifeMin = tbLife.Value;
             ldlLife.Text = $"Продолжительность жизни: {tbLife.Value}"; // добавил вывод значения

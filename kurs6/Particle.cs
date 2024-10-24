@@ -14,7 +14,7 @@ namespace kurs6
         public float Y; // Y координата положения частицы в пространстве
 
         // конструктор по умолчанию будет создавать кастомную частицу
-        public float Life; // запас здоровья частицы
+        public float Life; // запас здоровья частицы 
 
         public static Random rand = new Random();
 
@@ -22,7 +22,9 @@ namespace kurs6
         public float Speed; // скорость перемещения
         public float SpeedX; // скорость перемещения по оси X
         public float SpeedY; // скорость перемещения по оси Y
-        public Particle()
+        
+        
+        public Particle()      //Конструктор создает частицу со случайными начальными параметрами
         {
             // генерируем произвольное направление и скорость
             var direction = (double)rand.Next(360);
@@ -32,16 +34,15 @@ namespace kurs6
             SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
             SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
 
-            // а это не трогаем
             Radius = 2 + rand.Next(10);
             Life = 20 + rand.Next(100);
         }
-        public virtual void Draw(Graphics g)
+
+        public virtual void Draw(Graphics g)  //рисует частицу на графике
         {
             // рассчитываем коэффициент прозрачности по шкале от 0 до 1.0
             float k = Math.Min(1f, Life / 100);
             // рассчитываем значение альфа канала в шкале от 0 до 255
-            // по аналогии с RGB, он используется для задания прозрачности
             int alpha = (int)(k * 255);
 
             // создаем цвет из уже существующего, но привязываем к нему еще и значение альфа канала
